@@ -1,15 +1,22 @@
 
 # 🎓 Student Management System
 
-A simple Java console application for managing students.
+A simple Java console application for managing students with file persistence.
 
-## 🚀 Features
-- ➕ Add student
-- 📋 View students
-- ❌ Delete student
-- 🔍 Search student
-- 💾 Save students to file
-- 🔄 Load students from file
+## 💾 Persistence
+- Data is stored in `students.txt`
+- The app automatically loads saved students on startup
+
+## 🧪 Demo
+
+--- Student Management System ---
+
+Add Student
+View Students
+Delete Student
+Search Student
+Save to File
+Exit
 
 
 ## 🛠️ Technologies Used
