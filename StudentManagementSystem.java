@@ -27,13 +27,16 @@ public class StudentManagementSystem {
 }
 
         while (true) {
-            System.out.println("\n--- Student Management System ---");
+            System.out.println("\n==============================");
+            System.out.println("  STUDENT MANAGEMENT SYSTEM");
+            System.out.println("==============================");
             System.out.println("1. Add Student");
             System.out.println("2. View Students");
             System.out.println("3. Delete Student");
             System.out.println("4. Search Student");
             System.out.println("5. Save to File");
             System.out.println("6. Exit");
+            System.out.println("==============================");
             System.out.print("Choose an option: ");
 
             int choice;
