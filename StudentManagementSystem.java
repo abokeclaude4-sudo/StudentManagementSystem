@@ -4,10 +4,8 @@ import java.util.Scanner;
 public class StudentManagementSystem {
 
     public static void main(String[] args) {
-        ArrayList<String> students = new ArrayList<>();
-        ArrayList<Integer> ids = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-
+        ArrayList<String> students = new ArrayList<>();
         int choice;
 
         do {
@@ -16,106 +14,95 @@ public class StudentManagementSystem {
             System.out.println("2. View Students");
             System.out.println("3. Update Student");
             System.out.println("4. Delete Student");
-            System.out.println("5. Exit");
-            System.out.println("6. Search Student");
+            System.out.println("5. Search Student");
+            System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
 
             choice = scanner.nextInt();
 
-            if (choice == 1) {
-                scanner.nextLine();
+            switch (choice) {
 
-                System.out.print("Enter student ID: ");
-                int id = scanner.nextInt();
-                scanner.nextLine();
+                case 1:
+                    System.out.print("Enter student name: ");
+                    scanner.nextLine();
+                    String name = scanner.nextLine();
+                    students.add(name);
+                    System.out.println("Student added successfully!");
+                    break;
 
-                System.out.print("Enter student name: ");
-                String name = scanner.nextLine();
+                case 2:
+                    if (students.isEmpty()) {
+                        System.out.println("No students found.");
+                    } else {
+                        System.out.println("Student List:");
+                        for (String s : students) {
+                            System.out.println("- " + s);
+                        }
+                    }
+                    break;
 
-                ids.add(id);
-                students.add(name);
+                case 3:
+                    System.out.print("Enter student name to update: ");
+                    scanner.nextLine();
+                    String oldName = scanner.nextLine();
+                    boolean updated = false;
 
-                System.out.println("✅ Student added!");
-
-            } else if (choice == 2) {
-                System.out.println("\n📋 Student List:");
-
-                if (students.isEmpty()) {
-                    System.out.println("No students found.");
-                } else {
                     for (int i = 0; i < students.size(); i++) {
-                        System.out.println("ID: " + ids.get(i) + " | Name: " + students.get(i));
+                        if (students.get(i).equalsIgnoreCase(oldName)) {
+                            System.out.print("Enter new student name: ");
+                            String newName = scanner.nextLine();
+                            students.set(i, newName);
+                            System.out.println("Student updated successfully!");
+                            updated = true;
+                            break;
+                        }
                     }
-                }
 
-            } else if (choice == 3) {
-                System.out.print("Enter student ID to update: ");
-                int updateId = scanner.nextInt();
-                scanner.nextLine();
-
-                boolean updated = false;
-
-                for (int i = 0; i < ids.size(); i++) {
-                    if (ids.get(i) == updateId) {
-                        System.out.print("Enter new student name: ");
-                        String newName = scanner.nextLine();
-                        students.set(i, newName);
-                        System.out.println("✅ Student updated!");
-                        updated = true;
-                        break;
+                    if (!updated) {
+                        System.out.println("Student not found.");
                     }
-                }
+                    break;
 
-                if (!updated) {
-                    System.out.println("❌ Student not found.");
-                }
+                case 4:
+                    System.out.print("Enter student name to delete: ");
+                    scanner.nextLine();
+                    String deleteName = scanner.nextLine();
 
-            } else if (choice == 4) {
-                System.out.print("Enter student ID to delete: ");
-                int deleteId = scanner.nextInt();
-
-                boolean removed = false;
-
-                for (int i = 0; i < ids.size(); i++) {
-                    if (ids.get(i) == deleteId) {
-                        ids.remove(i);
-                        students.remove(i);
-                        System.out.println("🗑️ Student deleted!");
-                        removed = true;
-                        break;
+                    if (students.removeIf(s -> s.equalsIgnoreCase(deleteName))) {
+                        System.out.println("Student deleted successfully!");
+                    } else {
+                        System.out.println("Student not found.");
                     }
-                }
+                    break;
 
-                if (!removed) {
-                    System.out.println("❌ Student not found.");
-                }
+                case 5:
+                    System.out.print("Enter student name to search: ");
+                    scanner.nextLine();
+                    String searchName = scanner.nextLine();
+                    boolean found = false;
 
-            } else if (choice == 6) {
-                System.out.print("Enter student ID to search: ");
-                int searchId = scanner.nextInt();
-
-                boolean found = false;
-
-                for (int i = 0; i < ids.size(); i++) {
-                    if (ids.get(i) == searchId) {
-                        System.out.println("🔍 Found: ID: " + ids.get(i) + " | Name: " + students.get(i));
-                        found = true;
-                        break;
+                    for (String s : students) {
+                        if (s.equalsIgnoreCase(searchName)) {
+                            System.out.println("Student found: " + s);
+                            found = true;
+                            break;
+                        }
                     }
-                }
 
-                if (!found) {
-                    System.out.println("❌ Student not found.");
-                }
+                    if (!found) {
+                        System.out.println("Student not found.");
+                    }
+                    break;
 
-            } else if (choice == 5) {
-                System.out.println("👋 Exiting program...");
+                case 6:
+                    System.out.println("Exiting program...");
+                    break;
 
-            } else {
-                System.out.println("⚠️ Invalid choice.");
+                default:
+                    System.out.println("Invalid choice. Try again.");
             }
 
-        } while (choice != 5);
+        } while (choice != 6);
 
         scanner.close();
     }
