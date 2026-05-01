@@ -7,3 +7,5 @@ John
 Johnson
 Zita
 Alfred
+Claude
+John
