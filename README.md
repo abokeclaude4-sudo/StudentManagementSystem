@@ -16,11 +16,11 @@ It allows users to manage student records efficiently.
 - ArrayList
 - Scanner
 
-  ## File Storage mention
+  ## File Storage
   File handling (FileWriter, Scanner)
 
 ## ▶️ How to Run
-1. 1. Compile the program:
+1. Compile the program:
    javac *.java
 
 2. Run the program:
@@ -34,4 +34,4 @@ It allows users to manage student records efficiently.
 - Basic problem-solving and debugging
 
 ## 👨‍💻 Author
-Claude Aboke
+Claude Aboke Alobo
