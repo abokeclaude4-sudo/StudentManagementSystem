@@ -35,9 +35,9 @@ public class Main {
                     break;
 
                 case 3:
-                    System.out.print("Enter name to remove: ");
-                    String removeName = scanner.nextLine();
-                    manager.removeStudent(removeName);
+                    System.out.print("Enter student ID to remove: ");
+                    String removeId = scanner.nextLine();
+                    manager.removeStudent(removeId);
                     break;
 
                 case 4:
