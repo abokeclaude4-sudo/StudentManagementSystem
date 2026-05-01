@@ -8,7 +8,7 @@ It allows users to manage student records efficiently.
 - Add Student (ID + Name)
 - View All Students
 - Update Student Information
-- Delete Student
+- Remove Student by ID
 - Search Student by ID
 
 ## 🛠️ Technologies Used
@@ -16,12 +16,15 @@ It allows users to manage student records efficiently.
 - ArrayList
 - Scanner
 
+  ## File Storage mention
+  File handling (FileWriter, Scanner)
+
 ## ▶️ How to Run
-1. Compile the program:
-   javac StudentManagementSystem.java
+1. 1. Compile the program:
+   javac *.java
 
 2. Run the program:
-   java StudentManagementSystem
+   java Main
 
 ## 📚 What I Learned
 - CRUD operations
