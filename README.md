@@ -1,37 +1,24 @@
 # Student Management System (Java)
 
-## 📌 Description
-This is a simple console-based Student Management System built using Java.  
-It allows users to manage student records efficiently.
+A simple console-based Java application that allows users to manage student records.
 
-## 🚀 Features
-- Add Student (ID + Name)
-- View All Students
-- Update Student Information
-- Remove Student by ID
-- Search Student by ID
+## Features
+- Add Student
+- View Students
+- Search Student
+- Update Student (by number)
+- Delete Student (by number)
+- Data saved to file (students.txt)
 
-## 🛠️ Technologies Used
+## Technologies
 - Java
 - ArrayList
-- Scanner
+- File Handling
 
-  ## File Storage
-  File handling (FileWriter, Scanner)
+## How to Run
+1. Open in VS Code or Eclipse
+2. Run StudentManagementSystem.java
+3. Follow menu options in terminal
 
-## ▶️ How to Run
-1. Compile the program:
-   javac *.java
-
-2. Run the program:
-   java Main
-
-## 📚 What I Learned
-- CRUD operations
-- Working with lists in Java
-- User input handling
-- Building menu-driven applications
-- Basic problem-solving and debugging
-
-## 👨‍💻 Author
-Claude Aboke Alobo
+## Author
+Claude Aboke
