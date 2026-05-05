@@ -1,6 +1,6 @@
 # Student Management System (Java)
 
-A simple console-based Java application that allows users to manage student records.
+Java console app for managing student records with file persistence.
 
 ## Features
 - Add Student
