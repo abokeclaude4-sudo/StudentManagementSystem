@@ -45,15 +45,15 @@ public class Main {
                     break;
 
                 case 5:
-                    System.out.print("Enter student name to update: ");
-                    String oldName = scanner.nextLine();
+                    System.out.print("Enter student ID to update: ");
+                    String oldID = scanner.nextLine();
                     System.out.print("Enter new name: ");
                     String newName = scanner.nextLine();
-                    manager.updateStudent(oldName, newName);
+                    manager.updateStudent(oldID, newName);
                     break;
 
                 case 6:
-                    System.out.print("Enter name to search: ");
+                    System.out.print("Enter student ID to search: ");
                     String searchName = scanner.nextLine();
                     manager.searchStudent(searchName);
                     break;
