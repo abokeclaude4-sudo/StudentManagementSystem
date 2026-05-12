@@ -1,103 +1,264 @@
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.*;
 
-public class StudentGUI {
+public class StudentGUI extends JFrame {
 
-    public static void main(String[] args) {
+    private JTextField idField;
+    private JTextField nameField;
+    private JTextArea displayArea;
+    private StudentManager manager;
 
-        JFrame frame = new JFrame("Student Management System");
-        frame.setSize(400, 450);
-        frame.setLayout(null);
-        frame.getContentPane().setBackground(Color.LIGHT_GRAY);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public StudentGUI() {
 
-        JLabel label = new JLabel("Student Management System");
-        label.setBounds(90, 20, 250, 30);
+        manager = new StudentManager();
+
+        setTitle("Student Management System");
+        setSize(600, 500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
+
+        JLabel idLabel = new JLabel("Student ID:");
+        idLabel.setBounds(20, 20, 120, 25);
+        add(idLabel);
+
+        idField = new JTextField();
+        idField.setBounds(140, 20, 200, 25);
+        add(idField);
+
+        JLabel nameLabel = new JLabel("Student Name:");
+        nameLabel.setBounds(20, 55, 120, 25);
+        add(nameLabel);
+
+        nameField = new JTextField();
+        nameField.setBounds(140, 55, 200, 25);
+        add(nameField);
 
         JButton addButton = new JButton("Add Student");
-        addButton.setBounds(100, 70, 180, 30);
+        addButton.setBounds(20, 95, 150, 30);
+        add(addButton);
 
         JButton viewButton = new JButton("View Students");
-        viewButton.setBounds(100, 120, 180, 30);
+        viewButton.setBounds(190, 95, 150, 30);
+        add(viewButton);
 
         JButton searchButton = new JButton("Search Student");
-        searchButton.setBounds(100, 170, 180, 30);
+        searchButton.setBounds(20, 135, 150, 30);
+        add(searchButton);
 
         JButton deleteButton = new JButton("Delete Student");
-        deleteButton.setBounds(100, 330, 180, 30);
+        deleteButton.setBounds(20, 175, 150, 30);
+        add(deleteButton);
 
-        JTextArea textArea = new JTextArea();
-        textArea.setEditable(false);
+        JButton updateButton = new JButton("Update Student");
+        updateButton.setBounds(190, 135, 150, 30);
+        add(updateButton);
 
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setBounds(50, 220, 280, 90);
+        JButton clearButton = new JButton("Clear");
+        clearButton.setBounds(190, 175, 150, 30);
+        add(clearButton);
 
-        StudentManager manager = new StudentManager();
+        JButton exitButton = new JButton("Exit");
+        exitButton.setBounds(20, 215, 320, 30);
+        add(exitButton);
 
-        addButton.addActionListener(e -> {
-            String name = JOptionPane.showInputDialog(frame, "Enter student name:");
+        displayArea = new JTextArea();
 
-            if (name != null && !name.trim().isEmpty()) {
-                manager.addStudent(name.trim());
-                textArea.setText("Student added successfully!");
-            }
-        });
+        JScrollPane scrollPane = new JScrollPane(displayArea);
 
-        viewButton.addActionListener(e -> {
-            textArea.setText("");
+        scrollPane.setBounds(20, 230, 540, 200);
 
-            for (String student : manager.getStudents()) {
-                String[] parts = student.split(",");
+        add(scrollPane);
 
-                if (parts.length == 2) {
-                    textArea.append("ID: " + parts[0] + " | Name: " + parts[1] + "\n");
+        addButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                String name = nameField.getText().trim();
+
+                if (!name.isEmpty()) {
+                    manager.addStudent(name);
+                    displayArea.setText("Student added successfully: " + name);
+                    JOptionPane.showMessageDialog(
+        null,
+                "Student added successfully!"
+);
+                    nameField.setText("");
                 } else {
-                    textArea.append(student + "\n");
+                    displayArea.setText("Please enter a student name.");
                 }
             }
         });
 
-        searchButton.addActionListener(e -> {
-            String searchName = JOptionPane.showInputDialog(frame, "Enter student name to search:");
+        viewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
 
-            if (searchName != null && !searchName.trim().isEmpty()) {
+                displayArea.setText("");
+
+                if (manager.getStudents().isEmpty()) {
+                    displayArea.setText("No students found.");
+                    return;
+                }
+
+                for (String student : manager.getStudents()) {
+
+                    String[] parts = student.split(",");
+
+                    if (parts.length == 2) {
+                        displayArea.append("ID: " + parts[0] + " | Name: " + parts[1] + "\n");
+                    }
+                }
+                displayArea.append("\nTotal Students: " + manager.getStudents().size());
+            }
+        });
+
+        searchButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                String searchName = nameField.getText().trim();
+                String searchId = idField.getText().trim();
+
+                if (searchName.isEmpty() && searchId.isEmpty()) {
+                displayArea.setText("Please enter a student ID or student name to search.");
+                return;
+                }
+
                 boolean found = false;
 
                 for (String student : manager.getStudents()) {
+
                     String[] parts = student.split(",");
 
-                    if (parts.length == 2 && parts[1].equalsIgnoreCase(searchName.trim())) {
-                        textArea.setText("Student Found:\nID: " + parts[0] + " | Name: " + parts[1]);
+                    if (
+                        (parts.length == 2 &&
+                        parts[1].equalsIgnoreCase(searchName))
+                        ||
+                        (parts.length == 2 &&
+                         parts[0].equals(searchId))
+       ) {
+                        displayArea.setText("Student found: ID " + parts[0] + " | Name: " + parts[1]);
+                        JOptionPane.showMessageDialog(
+        null,
+               "Student found!"
+);
                         found = true;
                         break;
                     }
                 }
 
                 if (!found) {
-                    textArea.setText("Student not found.");
+                    displayArea.setText("Student not found.");
                 }
             }
         });
 
-        deleteButton.addActionListener(e -> {
-            String input = JOptionPane.showInputDialog(frame, "Enter Student ID to delete:");
+        deleteButton.addActionListener(new ActionListener() {
+    public void actionPerformed(ActionEvent e) {
 
-            try {
-                int id = Integer.parseInt(input);
+        String input = idField.getText().trim();
+
+        if (input.isEmpty()) {
+            displayArea.setText("Enter student ID to delete.");
+            return;
+        }
+
+        try {
+
+            int id = Integer.parseInt(input);
+
+            int confirm = JOptionPane.showConfirmDialog(
+                    null,
+                    "Are you sure you want to delete this student?",
+                    "Confirm Delete",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (confirm == JOptionPane.YES_OPTION) {
+
                 manager.deleteStudent(id);
-                textArea.setText("Student deleted successfully.");
-            } catch (Exception ex) {
-                textArea.setText("Invalid ID.");
+
+                displayArea.setText("Student deleted successfully.");
+
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Delete completed."
+                );
+
+                nameField.setText("");
+
+            } else {
+
+                displayArea.setText("Delete cancelled.");
+            }
+
+        } catch (NumberFormatException ex) {
+
+            displayArea.setText("Please enter a valid numeric ID.");
+        }
+    }
+});
+
+        clearButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                nameField.setText("");
+                displayArea.setText("");
             }
         });
 
-        frame.add(label);
-        frame.add(addButton);
-        frame.add(viewButton);
-        frame.add(searchButton);
-        frame.add(deleteButton);
-        frame.add(scrollPane);
+        exitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
 
-        frame.setVisible(true);
+        setVisible(true);
+
+        updateButton.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+
+           String idText = idField.getText().trim();
+           String newName = nameField.getText().trim();
+
+           if (idText.isEmpty() || newName.isEmpty()) {
+           displayArea.setText("Enter student ID and new name.");
+           return;
+    }
+
+        try {
+
+            int id = Integer.parseInt(idText);
+
+            boolean updated = manager.updateStudent(id, newName);
+
+            if (updated) {
+
+                displayArea.setText(
+                    "Student updated successfully."
+                );
+
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Student updated successfully!"
+                );
+
+                nameField.setText("");
+
+            } else {
+
+                displayArea.setText(
+                    "Student ID not found."
+                );
+            }
+
+        } catch (NumberFormatException ex) {
+
+            displayArea.setText(
+                "Invalid format. Example: 1,Claude"
+            );
+        }
+    }
+});
+    }
+
+    public static void main(String[] args) {
+        new StudentGUI();
     }
 }

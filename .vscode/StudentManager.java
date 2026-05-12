@@ -74,6 +74,28 @@ public class StudentManager {
         System.out.println("Student not found.");
     }
 
+    public boolean updateStudent(int id, String newName) {
+
+        newName = newName.substring(0, 1).toUpperCase()
+                + newName.substring(1).toLowerCase();
+
+        for (int i = 0; i < students.size(); i++) {
+
+            String[] parts = students.get(i).split(",");
+
+            if (parts.length == 2 && Integer.parseInt(parts[0]) == id) {
+
+                students.set(i, id + "," + newName);
+
+                saveStudents();
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void saveStudents() {
 
         try {
