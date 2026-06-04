@@ -18,7 +18,6 @@ public class StudentManager {
     public int getStudentCount() {
     return students.size();
 }
-
     public void addStudent(String name) {
 
         if (name == null || name.trim().isEmpty()) {
@@ -34,14 +33,6 @@ public class StudentManager {
         for (Student student : students) {
 
             if (student.getName().equalsIgnoreCase(name)) {
-                System.out.println("Student already exists!");
-                return;
-            }
-        }
-
-        Student student = new Student(nextId, name);
-
-        students.add(student);
 
         nextId++;
 

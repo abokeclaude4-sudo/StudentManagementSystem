@@ -1,3 +1,14 @@
+<<<<<<< HEAD
 1,Claude
 3,George
 4,John kalehe
+=======
+1,John
+2,Jay Jay
+3,Claude4
+4,Pearl
+9,Papa
+10,Joel
+11,Andre
+12,Cloe
+>>>>>>> 4574aae769e1a44f2c62f1566166696873a2fd47
